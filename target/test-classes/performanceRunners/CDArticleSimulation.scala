@@ -7,23 +7,34 @@ import io.gatling.core.Predef._
 import scala.concurrent.duration._
 
 class CDArticleSimulation extends Simulation {
+
     CreateTokens.createAccessTokens()
+
 
     val protocol = karateProtocol(
         "api/articles/{articleId}"  -> Nil
     )
+    // <simulationClass>src/test/java/per</simulationClass>
 
     protocol.nameResolver = (req, ctx) => req.getHeader("karate-name")
 
     val article = csv("article.csv").circular
+    val tokenFeeder = Iterator.continually (Map("token" -> CreateTokens.getNextToken))
 
-    val tokenFeeder = Iterator.continually(Map("token" -> CreateTokens.getNextToken))
-    val createArticle = scenario("Create An Article").feed(article).exec(karateFeature("classpath:features/performanceFeatures/createArticle.feature@load"))
+    val usersCount = System.getProperty("usersCount")
+    val duration = System.getProperty("duration")
+    val featureName = System.getProperty("featureName")
+    val tagName = System.getProperty("tagName")
 
-    //terminaldan run etmek icin
-    // mvn clean test-compile gatling:test -DsimulationClass="performanceRunners.CDArticleSimulation"
-    // cmd'den calistirmak icin.
+    //val createArticle = scenario("Create An Article").feed(article).feed(tokenFeeder).exec(karateFeature("classpath:features/performanceFeatures/" +featureName +".feature@"+tagName+""))
+    val createArticle = scenario("Create An Article").feed(article).feed(tokenFeeder).exec(karateFeature("classpath:features/performanceFeatures/createArticle.feature@load"))
+
+
     // mvn clean test-compile gatling:test -Dgatling.simulationClass=performanceRunners.CDArticleSimulation
+
+    // setUp(
+    //   createArticle.inject(rampUsers(usersCount.toInt) during Duration(duration.toInt, SECONDS)).protocols(protocol)
+    // );
     setUp(
         createArticle.inject(
             atOnceUsers(1), // 1 user ile simulasyon basladi
