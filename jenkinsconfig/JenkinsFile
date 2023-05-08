@@ -14,9 +14,8 @@ pipeline {
             stage('Running Test') {
                     steps {
                         script {
-                            sh """
+                            bat """
                                 mvn -s ./jenkinsconfig/settings.xml test-compile gatling:test -Dgatling.simulationClass=performanceRunners.${RunnerName} -DuserCount=${UserCount} -Dduration=${Duration} -DconstantDuration=${ConstantDuration} -DconstantUser=${ConstantUser} -DfeatureName=${FeatureName} -DtagName=${TagName}
-                                bat 'mvn clean install'
                             """
                         }
                     }
