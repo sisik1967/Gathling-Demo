@@ -14,7 +14,7 @@ pipeline {
             stage('Running Test') {
                     steps {
                         script {
-                            bat """
+                            sh """
                                 mvn -s ./jenkinsconfig/settings.xml test-compile gatling:test -Dgatling.simulationClass=performanceRunners.${RunnerName} -DuserCount=${UserCount} -Dduration=${Duration} -DconstantDuration=${ConstantDuration} -DconstantUser=${ConstantUser} -DfeatureName=${FeatureName} -DtagName=${TagName}
                             """
                         }
