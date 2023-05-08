@@ -32,19 +32,19 @@ class CDArticleSimulation extends Simulation {
 
     // mvn clean test-compile gatling:test -Dgatling.simulationClass=performanceRunners.CDArticleSimulation
 
-    // setUp(
-    //   createArticle.inject(rampUsers(usersCount.toInt) during Duration(duration.toInt, SECONDS)).protocols(protocol)
-    // );
-    setUp(
-        createArticle.inject(
-            atOnceUsers(1), // 1 user ile simulasyon basladi
-            nothingFor(4.seconds), // 4 saniye duraklama
-            constantUsersPerSec(1) during (10.seconds), // 10 saniye boyunca her 1 saniyede 1 user injecte edildi
-            constantUsersPerSec(2) during (10.seconds), // 10 saniye boyunca her 1 saniyede 2 user injecte edildi
-            rampUsersPerSec(2) to 12 during (20.seconds), // 2 user aninda inject edildi ve ardindan 20 sn boyunca 10 user daha duzenli inject edilecek sekilde simulasyon devam etti
-            nothingFor(5.seconds), // 5 saniye duraklama
-            constantUsersPerSec(1) during (5.seconds) // 5 saniye boyunca her 1 saniyede 1 user injecte edildi
-        ).protocols(protocol))
+     setUp(
+       createArticle.inject(rampUsers(usersCount.toInt) during Duration(duration.toInt, SECONDS)).protocols(protocol)
+     );
+//    setUp(
+//        createArticle.inject(
+//            atOnceUsers(1), // 1 user ile simulasyon basladi
+//            nothingFor(4.seconds), // 4 saniye duraklama
+//            constantUsersPerSec(1) during (10.seconds), // 10 saniye boyunca her 1 saniyede 1 user injecte edildi
+//            constantUsersPerSec(2) during (10.seconds), // 10 saniye boyunca her 1 saniyede 2 user injecte edildi
+//            rampUsersPerSec(2) to 12 during (20.seconds), // 2 user aninda inject edildi ve ardindan 20 sn boyunca 10 user daha duzenli inject edilecek sekilde simulasyon devam etti
+//            nothingFor(5.seconds), // 5 saniye duraklama
+//            constantUsersPerSec(1) during (5.seconds) // 5 saniye boyunca her 1 saniyede 1 user injecte edildi
+//        ).protocols(protocol))
 
 
     // OPEN MODEL
