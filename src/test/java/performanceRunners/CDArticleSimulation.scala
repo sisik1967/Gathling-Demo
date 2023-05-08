@@ -26,8 +26,8 @@ class CDArticleSimulation extends Simulation {
     val featureName = System.getProperty("featureName")
     val tagName = System.getProperty("tagName")
 
-    //val createArticle = scenario("Create An Article").feed(article).feed(tokenFeeder).exec(karateFeature("classpath:features/performanceFeatures/" +featureName +".feature@"+tagName+""))
-    val createArticle = scenario("Create An Article").feed(article).feed(tokenFeeder).exec(karateFeature("classpath:features/performanceFeatures/createArticle.feature@load"))
+    val createArticle = scenario("Create An Article").feed(article).feed(tokenFeeder).exec(karateFeature("classpath:features/performanceFeatures/" +featureName +".feature@"+tagName+""))
+    //val createArticle = scenario("Create An Article").feed(article).feed(tokenFeeder).exec(karateFeature("classpath:features/performanceFeatures/createArticle.feature@load"))
 
 
     // mvn clean test-compile gatling:test -Dgatling.simulationClass=performanceRunners.CDArticleSimulation
